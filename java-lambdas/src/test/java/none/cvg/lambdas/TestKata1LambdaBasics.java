@@ -37,11 +37,9 @@ public class TestKata1LambdaBasics {
         // TODO:
         //  Replace the anonymous class with a lambda.
         //  Hint: () -> new object()
-        IntegerPairFactory integerPairFactory = new IntegerPairFactory() {
-            @Override
-            public IntegerPair get() {
+
+        IntegerPairFactory integerPairFactory = () ->  {
                 return new IntegerPair();
-            }
         };
 
         assertEquals(classic, integerPairFactory.get(),
@@ -61,12 +59,7 @@ public class TestKata1LambdaBasics {
         // TODO:
         //  Replace the anonymous class with a method reference.
         //  Hint: () -> Object::new
-        IntegerPairFactory integerPairFactory = new IntegerPairFactory() {
-            @Override
-            public IntegerPair get() {
-                return new IntegerPair();
-            }
-        };
+        IntegerPairFactory integerPairFactory = IntegerPair::new;
 
         assertEquals(classic, integerPairFactory.get(),
                 "Both objects should be equal");
@@ -86,17 +79,12 @@ public class TestKata1LambdaBasics {
         //  Replace the below anonymous class with a lambda call
         //  Most IDEs allow for an automatic conversion
         //  Hint: object -> object.method()
-        Function<IntegerPair, Integer> getSecond = new Function<>() {
-            @Override
-            public Integer apply(IntegerPair integerPair) {
-                return integerPair.getSecond();
-            }
-        };
+        Function<IntegerPair, Integer> getSecond = integerPair1 -> integerPair1.getSecond();
 
         // TODO:
         //  Fix the assertion to return the correct expectation (6)
         //  Check API: java.util.function.Function.apply(?)
-        assertEquals(6, getSecond.apply(integerPair),
+        assertEquals(6, getSecond.apply(new IntegerPair()),
                 "The key should have a value of \'defaultKey\'");
     }
 
@@ -114,12 +102,7 @@ public class TestKata1LambdaBasics {
         //  Replace the below anonymous class with a method reference
         //  Most IDEs allow for an automatic conversion (no parenthesis for method)
         //  Hint: object -> Object::method
-        Function<IntegerPair, Integer> getSecond = new Function<>() {
-            @Override
-            public Integer apply(IntegerPair integerPair) {
-                return integerPair.getSecond();
-            }
-        };
+        Function<IntegerPair, Integer> getSecond = IntegerPair::getSecond;
 
         // TODO:
         //  Fix the assertion to return the correct expectation (6)
@@ -138,12 +121,7 @@ public class TestKata1LambdaBasics {
         // TODO:
         //  Replace the anonymous class with a lambda. Hint: () ->
         //  The addAndGet() needs to be updated to add 1 instead of 0.
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                counter.addAndGet(0);
-            }
-        };
+        Runnable runnable = () -> counter.addAndGet(1);
 
         runnable.run();
 
@@ -164,7 +142,7 @@ public class TestKata1LambdaBasics {
         //  Do not create a new method. Replace the empty String below to invoke a toBinaryString
         //  Check API: java.util.function.Function
         //  Check API: java.util.function.Function.apply(?)
-        Function<Integer, String> toBinaryStringFunction = i -> "";
+        Function<Integer, String> toBinaryStringFunction = (i) -> Integer.toBinaryString(i);
 
         assertEquals("1010",
                 toBinaryStringFunction.apply(10),
@@ -188,7 +166,7 @@ public class TestKata1LambdaBasics {
         //  Check API: java.util.function.Function
         //  Check API: java.util.function.Function.apply(?)
         //  Check API: java.lang.Integer.toBinaryString(?)
-        Function<Integer, String> toBinaryStringFunction = x -> "";
+        Function<Integer, String> toBinaryStringFunction =  Integer::toBinaryString;
 
         assertEquals("1010",
                 toBinaryStringFunction.apply(10),
